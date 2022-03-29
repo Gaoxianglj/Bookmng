@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.accenturespringbootdemo.dao.BorrowHistoryDao">
+
+    <resultMap type="com.example.accenturespringbootdemo.entity.BorrowHistory" id="BorrowHistoryMap">
+        <result property="historyId" column="history_id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="bookId" column="book_id" jdbcType="INTEGER"/>
+        <result property="borrowDate" column="borrow_date" jdbcType="TIMESTAMP"/>
+        <result property="returnDate" column="return_date" jdbcType="TIMESTAMP"/>
+        <result property="createDateTime" column="create_date_time" jdbcType="TIMESTAMP"/>
+        <result property="updateDateTime" column="update_date_time" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="delete_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BorrowHistoryMap">
+        select
+          history_id, user_id, book_id, borrow_date, return_date, create_date_time, update_date_time, delete_flag
+        from borrow_history
+        where history_id = #{historyId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BorrowHistoryMap">
+        select
+          history_id, user_id, book_id, borrow_date, return_date, create_date_time, update_date_time, delete_flag
+        from borrow_history
+        <where>
+            <if test="borrowHistory.historyId != null">
+                and history_id = #{borrowHistory.historyId}
+            </if>
+            <if test="borrowHistory.userId != null">
+                and user_id = #{borrowHistory.userId}
+            </if>
+            <if test="borrowHistory.bookId != null">
+                and book_id = #{borrowHistory.bookId}
+            </if>
+            <if test="borrowHistory.borrowDate != null">
+                and borrow_date = #{borrowHistory.borrowDate}
+            </if>
+            <if test="borrowHistory.returnDate != null">
+                and return_date = #{borrowHistory.returnDate}
+            </if>
+            <if test="borrowHistory.createDateTime != null">
+                and create_date_time = #{borrowHistory.createDateTime}
+            </if>
+            <if test="borrowHistory.updateDateTime != null">
+                and update_date_time = #{borrowHistory.updateDateTime}
+            </if>
+            <if test="borrowHistory.deleteFlag != null">
+                and delete_flag = #{borrowHistory.deleteFlag}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from borrow_history
+        <where>
+            <if test="historyId != null">
+                and history_id = #{historyId}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="bookId != null">
+                and book_id = #{bookId}
+            </if>
+            <if test="borrowDate != null">
+                and borrow_date = #{borrowDate}
+            </if>
+            <if test="returnDate != null">
+                and return_date = #{returnDate}
+            </if>
+            <if test="createDateTime != null">
+                and create_date_time = #{createDateTime}
+            </if>
+            <if test="updateDateTime != null">
+                and update_date_time = #{updateDateTime}
+            </if>
+            <if test="deleteFlag != null">
+                and delete_flag = #{deleteFlag}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="historyId" useGeneratedKeys="true">
+        insert into borrow_history(user_id, book_id, borrow_date, return_date, create_date_time, update_date_time, delete_flag)
+        values (#{userId}, #{bookId}, #{borrowDate}, #{returnDate}, #{createDateTime}, #{updateDateTime}, #{deleteFlag})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="historyId" useGeneratedKeys="true">
+        insert into borrow_history(user_id, book_id, borrow_date, return_date, create_date_time, update_date_time, delete_flag)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.userId}, #{entity.bookId}, #{entity.borrowDate}, #{entity.returnDate}, #{entity.createDateTime}, #{entity.updateDateTime}, #{entity.deleteFlag})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="historyId" useGeneratedKeys="true">
+        insert into borrow_history(user_id, book_id, borrow_date, return_date, create_date_time, update_date_time, delete_flag)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.userId}, #{entity.bookId}, #{entity.borrowDate}, #{entity.returnDate}, #{entity.createDateTime}, #{entity.updateDateTime}, #{entity.deleteFlag})
+        </foreach>
+        on duplicate key update
+        user_id = values(user_id),
+        book_id = values(book_id),
+        borrow_date = values(borrow_date),
+        return_date = values(return_date),
+        create_date_time = values(create_date_time),
+        update_date_time = values(update_date_time),
+        delete_flag = values(delete_flag)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update borrow_history
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="bookId != null">
+                book_id = #{bookId},
+            </if>
+            <if test="borrowDate != null">
+                borrow_date = #{borrowDate},
+            </if>
+            <if test="returnDate != null">
+                return_date = #{returnDate},
+            </if>
+            <if test="createDateTime != null">
+                create_date_time = #{createDateTime},
+            </if>
+            <if test="updateDateTime != null">
+                update_date_time = #{updateDateTime},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+        </set>
+        where history_id = #{historyId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from borrow_history where history_id = #{historyId}
+    </delete>
+
+</mapper>
+

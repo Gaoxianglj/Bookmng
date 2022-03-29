@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.accenturespringbootdemo.dao.UserDao">
+
+    <resultMap type="com.example.accenturespringbootdemo.entity.User" id="UserMap">
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="userType" column="user_type" jdbcType="INTEGER"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="birthday" column="birthday" jdbcType="TIMESTAMP"/>
+        <result property="gender" column="gender" jdbcType="INTEGER"/>
+        <result property="grade" column="grade" jdbcType="INTEGER"/>
+        <result property="interest" column="interest" jdbcType="VARCHAR"/>
+        <result property="introduction" column="introduction" jdbcType="VARCHAR"/>
+        <result property="validStartTime" column="valid_start_time" jdbcType="TIMESTAMP"/>
+        <result property="validEndTime" column="valid_end_time" jdbcType="TIMESTAMP"/>
+        <result property="createDateTime" column="create_date_time" jdbcType="TIMESTAMP"/>
+        <result property="updateDateTime" column="update_date_time" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="delete_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserMap">
+        select
+          user_id, user_name, password, user_type, email, birthday, gender, grade, interest, introduction, valid_start_time, valid_end_time, create_date_time, update_date_time, delete_flag
+        from user
+        where user_id = #{userId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserMap">
+        select
+          user_id, user_name, password, user_type, email, birthday, gender, grade, interest, introduction, valid_start_time, valid_end_time, create_date_time, update_date_time, delete_flag
+        from user
+        <where>
+            <if test="user.userId != null">
+                and user_id = #{user.userId}
+            </if>
+            <if test="user.userName != null and user.userName != ''">
+                and user_name = #{user.userName}
+            </if>
+            <if test="user.password != null and user.password != ''">
+                and password = #{user.password}
+            </if>
+            <if test="user.userType != null">
+                and user_type = #{user.userType}
+            </if>
+            <if test="user.email != null and user.email != ''">
+                and email = #{user.email}
+            </if>
+            <if test="user.birthday != null">
+                and birthday = #{user.birthday}
+            </if>
+            <if test="user.gender != null">
+                and gender = #{user.gender}
+            </if>
+            <if test="user.grade != null">
+                and grade = #{user.grade}
+            </if>
+            <if test="user.interest != null and user.interest != ''">
+                and interest = #{user.interest}
+            </if>
+            <if test="user.introduction != null and user.introduction != ''">
+                and introduction = #{user.introduction}
+            </if>
+            <if test="user.validStartTime != null">
+                and valid_start_time = #{user.validStartTime}
+            </if>
+            <if test="user.validEndTime != null">
+                and valid_end_time = #{user.validEndTime}
+            </if>
+            <if test="user.createDateTime != null">
+                and create_date_time = #{user.createDateTime}
+            </if>
+            <if test="user.updateDateTime != null">
+                and update_date_time = #{user.updateDateTime}
+            </if>
+            <if test="user.deleteFlag != null">
+                and delete_flag = #{user.deleteFlag}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from user
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="userType != null">
+                and user_type = #{userType}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="birthday != null">
+                and birthday = #{birthday}
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="grade != null">
+                and grade = #{grade}
+            </if>
+            <if test="interest != null and interest != ''">
+                and interest = #{interest}
+            </if>
+            <if test="introduction != null and introduction != ''">
+                and introduction = #{introduction}
+            </if>
+            <if test="validStartTime != null">
+                and valid_start_time = #{validStartTime}
+            </if>
+            <if test="validEndTime != null">
+                and valid_end_time = #{validEndTime}
+            </if>
+            <if test="createDateTime != null">
+                and create_date_time = #{createDateTime}
+            </if>
+            <if test="updateDateTime != null">
+                and update_date_time = #{updateDateTime}
+            </if>
+            <if test="deleteFlag != null">
+                and delete_flag = #{deleteFlag}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="userId" useGeneratedKeys="true">
+        insert into user(user_name, password, user_type, email, birthday, gender, grade, interest, introduction, valid_start_time, valid_end_time, create_date_time, update_date_time, delete_flag)
+        values (#{userName}, #{password}, #{userType}, #{email}, #{birthday}, #{gender}, #{grade}, #{interest}, #{introduction}, #{validStartTime}, #{validEndTime}, #{createDateTime}, #{updateDateTime}, #{deleteFlag})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="userId" useGeneratedKeys="true">
+        insert into user(user_name, password, user_type, email, birthday, gender, grade, interest, introduction, valid_start_time, valid_end_time, create_date_time, update_date_time, delete_flag)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.userName}, #{entity.password}, #{entity.userType}, #{entity.email}, #{entity.birthday}, #{entity.gender}, #{entity.grade}, #{entity.interest}, #{entity.introduction}, #{entity.validStartTime}, #{entity.validEndTime}, #{entity.createDateTime}, #{entity.updateDateTime}, #{entity.deleteFlag})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="userId" useGeneratedKeys="true">
+        insert into user(user_name, password, user_type, email, birthday, gender, grade, interest, introduction, valid_start_time, valid_end_time, create_date_time, update_date_time, delete_flag)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.userName}, #{entity.password}, #{entity.userType}, #{entity.email}, #{entity.birthday}, #{entity.gender}, #{entity.grade}, #{entity.interest}, #{entity.introduction}, #{entity.validStartTime}, #{entity.validEndTime}, #{entity.createDateTime}, #{entity.updateDateTime}, #{entity.deleteFlag})
+        </foreach>
+        on duplicate key update
+        user_name = values(user_name),
+        password = values(password),
+        user_type = values(user_type),
+        email = values(email),
+        birthday = values(birthday),
+        gender = values(gender),
+        grade = values(grade),
+        interest = values(interest),
+        introduction = values(introduction),
+        valid_start_time = values(valid_start_time),
+        valid_end_time = values(valid_end_time),
+        create_date_time = values(create_date_time),
+        update_date_time = values(update_date_time),
+        delete_flag = values(delete_flag)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update user
+        <set>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="userType != null">
+                user_type = #{userType},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="grade != null">
+                grade = #{grade},
+            </if>
+            <if test="interest != null and interest != ''">
+                interest = #{interest},
+            </if>
+            <if test="introduction != null and introduction != ''">
+                introduction = #{introduction},
+            </if>
+            <if test="validStartTime != null">
+                valid_start_time = #{validStartTime},
+            </if>
+            <if test="validEndTime != null">
+                valid_end_time = #{validEndTime},
+            </if>
+            <if test="createDateTime != null">
+                create_date_time = #{createDateTime},
+            </if>
+            <if test="updateDateTime != null">
+                update_date_time = #{updateDateTime},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from user where user_id = #{userId}
+    </delete>
+
+</mapper>
+
