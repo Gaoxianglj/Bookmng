@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.accenturespringbootdemo.repository.UserRepository">
+
+  <select id="seletUserByNameAndPwd" resultType="User">
+    SELECT
+      user_id
+      , user_name
+      , password
+      , user_type
+      , email
+      , birthday
+      , gender
+      , grade
+      , interest
+      , introduction
+      , valid_start_time
+      , valid_end_time
+      , create_date_time
+      , update_date_time
+      , delete_flag
+    FROM
+      bookmng.user
+    WHERE
+      user_name = #{userName, jdbcType=VARCHAR}
+    AND
+      password = #{password, jdbcType=VARCHAR}
+    AND
+      delete_flag = FALSE
+  </select>
+  <insert id="Registration" parameterType="User">
+    INSERT INTO bookmng.user
+    (
+      user_name, password, user_type, email, birthday, gender, grade, interest, introduction, valid_start_time, valid_end_time, create_date_time, update_date_time, delete_flag
+    )
+    VALUES
+      (
+        #{user.userName,       jdbcType=VARCHAR}
+      , #{user.password,       jdbcType=VARCHAR}
+      , #{user.userType,       jdbcType=INTEGER}
+      , #{user.email,          jdbcType=VARCHAR}
+      , #{user.birthday,       jdbcType=TIMESTAMP}
+      , #{user.gender,         jdbcType=INTEGER}
+      , #{user.grade,          jdbcType=INTEGER}
+      , #{user.interest,       jdbcType=VARCHAR}
+      , #{user.introduction,   jdbcType=VARCHAR}
+      , #{user.validStartTime, jdbcType=TIMESTAMP}
+      , #{user.validEndTime,   jdbcType=TIMESTAMP}
+      , #{user.createDateTime, jdbcType=TIMESTAMP}
+      , #{user.updateDateTime, jdbcType=TIMESTAMP}
+      , #{user.deleteFlag,     jdbcType=BOOLEAN}
+      )
+  </insert>
+</mapper>

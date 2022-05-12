@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <trees>
+     <tree path="/src/main/java/com/example/accenturespringbootdemo/controller/BorrowingBooksController.java"
+           title="图书借阅" extension="java"/>
+     <tree path="/src/main/java/com/example/accenturespringbootdemo/controller/LoginController.java" title="登录"
+           extension="java"/>
+     <tree path="/src/main/java/com/example/accenturespringbootdemo/controller/LoginLogExportController.java"
+           title="登录日志导出" extension="java"/>
+     <tree path="/src/main/java/com/example/accenturespringbootdemo/controller/LogRetrieveController.java"
+           title="登录日志展示" extension="java"/>
+     <tree path="/src/main/java/com/example/accenturespringbootdemo/controller/RankingRetrieveController.java"
+           title="排行榜" extension="java"/>
+     <tree path="/src/main/java/com/example/accenturespringbootdemo/controller/RegistrationController.java" title="注册"
+           extension="java"/>
+    <tree path="/src/main/java/com/example/accenturespringbootdemo/controller/ReturnController.java" title="图书归还"
+          extension="java"/>
+    <tree path="/src/main/java/com/example/accenturespringbootdemo/controller/UserUpdateController.java" title="用户信息编辑"
+          extension="java"/>
+    <tree path="/src/main/java/com/example/accenturespringbootdemo/entity/RankingRetrieve" title="排行榜（三个类）"/>
+    <tree path="/src/main/java/com/example/accenturespringbootdemo/controller/SelectBorrowController.java" title="查询借阅"
+          extension="java"/>
+    <tree path="/src/main/java/com/example/accenturespringbootdemo/controller/SelectBookController.java"
+          title="有条件的图书列表返回" extension="java"/>
+</trees>

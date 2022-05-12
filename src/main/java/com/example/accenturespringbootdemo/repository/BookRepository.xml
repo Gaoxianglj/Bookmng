@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.accenturespringbootdemo.repository.BookRepository">
+
+  <update id="UpdateQuantity" >
+    update bookmng.book set
+           quantity=quantity+#{updateQuantity},
+           update_date_time=#{updateDateTime}
+           where book_id=#{bookId}
+  </update>
+    <select id="SelectByBookName" resultType="com.example.accenturespringbootdemo.entity.BookEntity">
+        select * from bookmng.book where book_name=#{bookName}
+    </select>
+    <select id="SelectBook" resultType="com.example.accenturespringbootdemo.entity.BookEntity">
+        select * from bookmng.book
+        <where>
+            <if test="#{book.bookId} != null">
+                and book_id = #{book.bookId}
+            </if>
+            <if test="#{book.authorName} != null and book.authorName != ''">
+                and author_name = #{book.authorName}
+            </if>
+            <if test="#{book.publisherName} != null and book.publisherName != ''">
+                and publisher_name = #{book.publisherName}
+            </if>
+            <if test="#{book.bookName} != null and book.bookName != ''">
+                and book_name = #{book.bookName}
+            </if>
+            <if test="#{book.quantity} != null">
+                and quantity = #{book.quantity}
+            </if>
+            <if test="#{book.createDateTime} != null">
+                and create_date_time = #{book.createDateTime}
+            </if>
+            <if test="#{book.updateDateTime} != null">
+                and update_date_time = #{book.updateDateTime}
+            </if>
+            <if test="#{book.deleteFlag} != null and book.deleteFlag != ''">
+                and delete_flag = #{book.deleteFlag}
+            </if>
+        </where>
+    </select>
+    <select id="RetrieveByParams" resultType="com.example.accenturespringbootdemo.requestdto.BookSelectForm">
+        select book_id,author_name,book_name,publisher_name,quantity from bookmng.book
+        <where>
+            <if test="book.bookId != null and book.authorName != ''">
+                and book_id = #{book.bookId}
+            </if>
+            <if test="book.authorName != null and book.authorName != ''">
+                and author_name like CONCAT('%',#{book.authorName},'%')
+            </if>
+            <if test="book.publisherName != null and book.publisherName != ''">
+                and publisher_name like CONCAT('%',#{book.publisherName},'%')
+            </if>
+            <if test="book.bookName != null and book.bookName != ''">
+                and book_name like CONCAT('%',#{book.bookName},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

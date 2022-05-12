@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.accenturespringbootdemo.repository.BorrowHistoryRepository">
+
+  <update id="ReturnBook" >
+    update bookmng.borrow_history set
+                                    return_date=#{returnDate},
+                                    update_date_time=#{updateDateTime}
+    where user_id=#{userId} and book_id=#{bookId}
+  </update>
+    <select id="SelectBorrowHistory" resultType="com.example.accenturespringbootdemo.entity.BorrowHistoryEntity">
+        select * from bookmng.borrow_history where book_id=#{bookId} and user_id=#{userId}
+    </select>
+</mapper>

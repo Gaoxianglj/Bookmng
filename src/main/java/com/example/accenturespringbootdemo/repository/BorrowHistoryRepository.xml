@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.accenturespringbootdemo.repository.BorrowHistoryRepository">
+
+  <update id="ReturnBook" >
+    update bookmng.borrow_history set
+           return_date=#{returnDate},
+           update_date_time=#{updateDateTime}
+           where user_id=#{userId} and book_id=#{bookId}
+  </update>
+  <select id="SelectBorrowHistory" resultType="com.example.accenturespringbootdemo.entity.BorrowHistoryEntity">
+      select * from bookmng.borrow_history where book_id=#{bookId} and user_id=#{userId} order by create_date_time desc LIMIT 1
+  </select>
+ <select id="BookRetrieve" resultType="com.example.accenturespringbootdemo.entity.RankingRetrieve.bookRankingRetrieve">
+     select book.book_name,book.author_name,count(*) as BorrowCount from bookmng.borrow_history join bookmng.book on book.book_id=borrow_history.book_id group by book.book_id order by BorrowCount desc
+ </select>
+    <select id="UserRetrieve" resultType="com.example.accenturespringbootdemo.entity.RankingRetrieve.userRankingRetrieve">
+     select user.user_name,count(*) as BorrowCount from bookmng.borrow_history join bookmng.user on user.user_id=borrow_history.user_id group by borrow_history.user_id order by BorrowCount desc
+    </select>
+    <insert id="insert" >
+        insert into bookmng.borrow_history (
+        user_id, book_id, borrow_date, create_date_time,update_date_time
+        )VALUES (
+            #{borrow.userId},
+            #{borrow.bookId},
+            #{borrow.borrowDate},
+            #{borrow.createDateTime},
+            #{borrow.updateDateTime}
+                        )
+     <selectKey order="AFTER"  keyProperty="borrow.historyId"  resultType="int">
+         SELECT LAST_INSERT_ID()
+     </selectKey>
+    </insert>
+    <update id="deleteById">
+        update bookmng.borrow_history set delete_flag=1 where history_id=#{historyId}
+    </update>
+    <select id="SelectBorrowHistoryList" resultType="com.example.accenturespringbootdemo.requestdto.BorrowHistoryForm">
+        select bh.user_id,bh.book_id,bh.borrow_date,u.user_name,book.book_name,book.publisher_name,book.author_name,bh.return_date
+        from bookmng.book  join bookmng.borrow_history bh on book.book_id = bh.book_id join bookmng.user u on bh.user_id = u.user_id
+        where
+                    bh.delete_flag=0
+        <if test="borrow.userId != null">
+            and bh.user_id = #{borrow.userId   jdbcType=VARCHAR}
+        </if>
+            <if test="borrow.bookId != null">
+                and bh.book_id = #{borrow.bookId}
+            </if>
+            <if test="borrow.userName != null">
+                and u.user_name = #{borrow.userName   jdbcType=VARCHAR}
+            </if>
+            <if test="borrow.bookName != null">
+                and book.book_name = #{borrow.bookName}
+            </if>
+            <if test="borrow.publisherName != null">
+                and book.publisher_name = #{borrow.publisherName}
+            </if>
+            <if test="borrow.authorName != null">
+                and book.author_name = #{borrow.authorName}
+            </if>
+            <if test="borrow.noreturn==1">
+                 and bh.return_date is null
+            </if>
+            <if test="borrow.noreturn==2">
+                and bh.return_date is not null
+            </if>
+
+    </select>
+</mapper>

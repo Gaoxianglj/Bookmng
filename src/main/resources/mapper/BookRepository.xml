@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.accenturespringbootdemo.repository.BookRepository">
+
+  <update id="UpdateQuantity" >
+    update bookmng.book set
+                          quantity=quantity+#{updateQuantity},
+                          update_date_time=#{updateDateTime}
+    where book_id=#{bookId}
+  </update>
+</mapper>

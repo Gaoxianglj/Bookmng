@@ -60,29 +60,29 @@
         select count(1)
         from borrow_history
         <where>
-            <if test="historyId != null">
-                and history_id = #{historyId}
+            <if test="borrowHistory.historyId != null">
+                and history_id = #{borrowHistory.historyId}
             </if>
-            <if test="userId != null">
-                and user_id = #{userId}
+            <if test="borrowHistory.userId != null">
+                and user_id = #{borrowHistory.userId}
             </if>
-            <if test="bookId != null">
-                and book_id = #{bookId}
+            <if test="borrowHistory.bookId != null">
+                and book_id = #{borrowHistory.bookId}
             </if>
-            <if test="borrowDate != null">
-                and borrow_date = #{borrowDate}
+            <if test="borrowHistory.borrowDate != null">
+                and borrow_date = #{borrowHistory.borrowDate}
             </if>
-            <if test="returnDate != null">
-                and return_date = #{returnDate}
+            <if test="borrowHistory.returnDate != null">
+                and return_date = #{borrowHistory.returnDate}
             </if>
-            <if test="createDateTime != null">
-                and create_date_time = #{createDateTime}
+            <if test="borrowHistory.createDateTime != null">
+                and create_date_time = #{borrowHistory.createDateTime}
             </if>
-            <if test="updateDateTime != null">
-                and update_date_time = #{updateDateTime}
+            <if test="borrowHistory.updateDateTime != null">
+                and update_date_time = #{borrowHistory.updateDateTime}
             </if>
-            <if test="deleteFlag != null">
-                and delete_flag = #{deleteFlag}
+            <if test="borrowHistory.deleteFlag != null">
+                and delete_flag = #{borrowHistory.deleteFlag}
             </if>
         </where>
     </select>
