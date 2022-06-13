@@ -11,6 +11,11 @@ import java.util.List;
 public class BookSelectServiceImpl implements BookSelectService {
 @Resource
     BookRepository bookRepository;
+    /**
+     * 有条件的查询图书列表
+     * @param form 查询条件
+     * @return 图书列表
+     */
     @Override
     public BookSelectForm[] RetrieveByParams(BookSelectForm form) {
 

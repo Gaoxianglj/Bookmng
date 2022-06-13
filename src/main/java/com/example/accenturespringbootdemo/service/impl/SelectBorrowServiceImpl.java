@@ -13,6 +13,12 @@ import java.util.List;
 public class SelectBorrowServiceImpl implements SelectBorrowService {
     @Resource
     BorrowHistoryRepository borrowHistoryRepository;
+
+    /**
+     * 有条件查询借阅记录
+     * @param borrowHistoryForm 查询条件
+     * @return 符合要求的记录
+     */
     @Override
     public List<BorrowHistoryForm> SelectBorrow(BorrowHistoryForm borrowHistoryForm) {
 if(borrowHistoryForm.getBookName()==null){

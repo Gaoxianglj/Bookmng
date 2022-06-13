@@ -8,7 +8,7 @@ public interface BorrowingBookService {
      * <p>根据用户名，图书名借阅图书</p>
      *
      * @param userName 用户名
-     * @param bookName 密码
+     * @param bookId 密码
      */
-    public void BorrowingBook(String userName,String bookName);
+    public void BorrowingBook(String userName,String bookId);
 }

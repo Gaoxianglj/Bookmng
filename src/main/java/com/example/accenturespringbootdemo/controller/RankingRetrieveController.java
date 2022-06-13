@@ -20,6 +20,8 @@ public class RankingRetrieveController {
      */
     @PostMapping("/ranking/retrieve")
     public rankingRetrieve RankingRetrieve(){
+
+        System.out.println(rankingRetrieveService.RankingRetrieve().getbookList().get(0).getBookName()+"wasdwasd");
         return rankingRetrieveService.RankingRetrieve();
     }
 }

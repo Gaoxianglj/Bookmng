@@ -48,22 +48,7 @@ public class RegistrationControllerTest {
         // 构建mvc环境
         mvc = MockMvcBuilders.standaloneSetup(registrationController).build();
     }
-
-    /**
-     * 测试方法
-     * <p>
-     * 用于测试LoginController中的Login方法。
-     * </p>
-     * <p>
-     * 注意，测试方法必须为public void 方法， 即公开且无返回值方法。
-     * </p>
-     * <p>
-     * 由于该示例仅展示Junit使用，所以方法直接throw异常。<br>
-     * 实际开发过程中应使用try-catch捕获异常并加以处理。
-     * </p>
-     *
-     * @throws Exception
-     */
+    
     @Test
     public void testLogin() throws Exception {
         UserEntity user = new UserEntity(1, "gggxxx");

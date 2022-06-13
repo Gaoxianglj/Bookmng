@@ -31,6 +31,9 @@ public class UserUpdateServiceImpl implements UserUpdateService {
             // 注册失败则抛出业务异常。
             throw new RuntimeException("注册失败,请联系后台");
         }
+        if(message==1){
+            System.out.println("修改成功");
+        }
 
     }
 }

@@ -4,16 +4,18 @@ package com.example.accenturespringbootdemo.entity.RankingRetrieve;
  */
 public class bookRankingRetrieve {
     //图书名
-    private String BookName;
+    private String bookName;
     //作者名
     private String authorName;
+    //借阅次数
     private Integer borrowCount;
+
     public String getBookName() {
-        return BookName;
+        return bookName;
     }
 
     public void setBookName(String bookName) {
-        BookName = bookName;
+        this.bookName = bookName;
     }
 
     public String getAuthorName() {
@@ -31,6 +33,4 @@ public class bookRankingRetrieve {
     public void setBorrowCount(Integer borrowCount) {
         this.borrowCount = borrowCount;
     }
-
-
 }

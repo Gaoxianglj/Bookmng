@@ -43,7 +43,7 @@
     <select id="RetrieveByParams" resultType="com.example.accenturespringbootdemo.requestdto.BookSelectForm">
         select book_id,author_name,book_name,publisher_name,quantity from bookmng.book
         <where>
-            <if test="book.bookId != null and book.authorName != ''">
+            <if test="book.bookId != null and book.bookId != ''">
                 and book_id = #{book.bookId}
             </if>
             <if test="book.authorName != null and book.authorName != ''">
@@ -56,5 +56,39 @@
                 and book_name like CONCAT('%',#{book.bookName},'%')
             </if>
         </where>
+    </select>
+    <insert id="insertBook">
+        insert into bookmng.book(author_name, publisher_name, book_name, quantity, create_date_time, update_date_time, delete_flag) VALUES(
+               #{book.authorName},
+               #{book.publisherName},
+               #{book.bookName},
+               #{book.quantity},
+               #{book.createDateTime},
+               #{book.updateDateTime},
+               #{book.deleteFlag}
+                                                                                                                                           )
+    </insert>
+    <delete id="deleteBook">
+        delete from bookmng.book where book_id=#{bookId}
+    </delete>
+
+    <update id="updateBook">
+        update bookmng.book set book_id=#{book.bookId}
+        <if test="book.authorName != null and book.authorName != ''">
+             ,author_name = #{book.authorName}
+        </if>
+        <if test="book.publisherName != null and book.publisherName != ''">
+             ,publisher_name =#{book.publisherName}
+        </if>
+        <if test="book.bookName != null and book.bookName != ''">
+             ,book_name =#{book.bookName}
+        </if>
+        <if test="book.quantity != null">
+             ,quantity =#{book.quantity}
+        </if>
+        where book_id=#{book.bookId}
+    </update>
+    <select id="SelectBookById" resultType="com.example.accenturespringbootdemo.entity.BookEntity">
+        select * from bookmng.book where book_id=#{bookId}
     </select>
 </mapper>

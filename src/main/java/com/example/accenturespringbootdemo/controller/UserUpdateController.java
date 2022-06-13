@@ -31,6 +31,7 @@ public class UserUpdateController {
             // 当form中存在验证错误，则抛出业务错误，将验证信息输出。
             throw new BusinessFailureException(errors);
         }
+        System.out.println("开始修改用户信息");
         userUpdateService.UserUpdate(form.forUser());
 
     }

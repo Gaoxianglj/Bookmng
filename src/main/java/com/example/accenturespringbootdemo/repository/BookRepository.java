@@ -42,4 +42,32 @@ public interface BookRepository {
      * @return              图书list
      */
     public BookSelectForm[] RetrieveByParams(@Param("book")BookSelectForm form);
+
+    /**
+     * 添加图书
+     * @param book 图书类
+     * @return 确认是否添加成功
+     */
+    public int insertBook(@Param("book")BookEntity book);
+
+    /**
+     * 根据bookId删除图书
+     * @param bookId 图书Id
+     * @return 确认是否删除成功
+     */
+    public int deleteBook(@Param("bookId")Integer bookId);
+
+    /**
+     * 更新图书内容
+     * @param form 更新图书内容
+     * @return 确认是否更新成功
+     */
+    public int updateBook(@Param("book")BookSelectForm form);
+
+    /**
+     * 根据图书Id查询图书类
+     * @param bookId 图书Id
+     * @return 符合的图书类
+     */
+    public BookEntity SelectBookById(@Param("bookId") String bookId);
 }

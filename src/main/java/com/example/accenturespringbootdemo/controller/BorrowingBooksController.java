@@ -28,7 +28,8 @@ public class BorrowingBooksController {
             // 当form中存在验证错误，则抛出业务错误，将验证信息输出。
             throw new BusinessFailureException(errors);
         }
-      borrowingBookService.BorrowingBook(form.getUserName(),form.getBookName());
+        System.out.println(form.getUserId()+"用户Id"+form.getBookId()+"bookId");
+      borrowingBookService.BorrowingBook(form.getUserId(),form.getBookId());
 
     }
 }

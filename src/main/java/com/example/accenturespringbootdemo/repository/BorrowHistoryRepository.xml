@@ -12,7 +12,7 @@
       select * from bookmng.borrow_history where book_id=#{bookId} and user_id=#{userId} order by create_date_time desc LIMIT 1
   </select>
  <select id="BookRetrieve" resultType="com.example.accenturespringbootdemo.entity.RankingRetrieve.bookRankingRetrieve">
-     select book.book_name,book.author_name,count(*) as BorrowCount from bookmng.borrow_history join bookmng.book on book.book_id=borrow_history.book_id group by book.book_id order by BorrowCount desc
+     select book.book_name,book.author_name,count(*) as BorrowCount from bookmng.borrow_history join bookmng.book on book.book_id=borrow_history.book_id group by bookmng.book.book_name order by BorrowCount desc
  </select>
     <select id="UserRetrieve" resultType="com.example.accenturespringbootdemo.entity.RankingRetrieve.userRankingRetrieve">
      select user.user_name,count(*) as BorrowCount from bookmng.borrow_history join bookmng.user on user.user_id=borrow_history.user_id group by borrow_history.user_id order by BorrowCount desc

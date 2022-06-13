@@ -53,19 +53,22 @@
   </insert>
   <update id="UserUpdate" parameterType="User">
     update bookmng.user set password=#{user.password,       jdbcType=VARCHAR},
-    <if test="#{user.email}!=null">
+    <if test="user.email != null">
          email=#{user.email,          jdbcType=VARCHAR},
     </if>
-    <if test="#{user.birthday}!=null">
+    <if test="user.birthday != null">
         birthday=#{user.birthday,       jdbcType=TIMESTAMP},
     </if>
-    <if test="#{user.gender}!=null">
+    <if test="user.gender != null">
         gender=#{user.gender,         jdbcType=INTEGER},
     </if>
-    <if test="#{user.interest}!=null">
+    <if test="user.grade != null">
+      grade=#{user.grade,         jdbcType=INTEGER},
+    </if>
+    <if test="user.interest != null">
       interest=#{user.interest,       jdbcType=VARCHAR},
     </if>
-    <if test="#{user.introduction}!=null">
+    <if test="user.introduction != null">
       introduction=#{user.introduction,   jdbcType=VARCHAR},
     </if>
        update_date_time=#{user.updateDateTime, jdbcType=TIMESTAMP}
@@ -94,5 +97,8 @@
       user_name = #{userName, jdbcType=VARCHAR}
       AND
       delete_flag = FALSE
+  </select>
+  <select id="SelectUserById" resultType="User">
+    select * from bookmng.user where user_id=#{userId, jdbcType=INTEGER}
   </select>
 </mapper>

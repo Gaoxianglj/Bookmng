@@ -25,6 +25,7 @@ public class RankingRetrieveServiceImpl implements RankingRetrieveService {
     public rankingRetrieve RankingRetrieve() {
         rankingRetrieve rankingRetrieve=new rankingRetrieve();
         rankingRetrieve.setBookList(borrowHistoryRepository.BookRetrieve());
+        System.out.println("书名"+borrowHistoryRepository.BookRetrieve().get(0).getBookName());
         rankingRetrieve.setuserList(borrowHistoryRepository.UserRetrieve());
         return rankingRetrieve;
     }

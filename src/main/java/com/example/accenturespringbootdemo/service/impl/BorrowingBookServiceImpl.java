@@ -29,20 +29,22 @@ public class BorrowingBookServiceImpl implements BorrowingBookService {
      * 借阅图书。
      * <p>根据用户名，图书名借阅图书</p>
      *
-     * @param userName 用户名
-     * @param bookName 密码
+     * @param userId 用户名
+     * @param bookId 密码
      */
     @Override
-    public void BorrowingBook(String userName, String bookName) {
+    public void BorrowingBook(String userId, String bookId) {
+        System.out.println("进入service");
         //检查用户是否存在
-        UserEntity user=userRepository.seletUserByName(userName);
-        if(user.getUserId()==null || !user.getDeleteFlag()){
+        UserEntity user=userRepository.SelectUserById(userId);
+        System.out.println("借阅用户Id"+user.getUserId());
+        if(user.getUserId()==null || user.getDeleteFlag()){
             System.out.println("用户不存在或已过期");
             throw new RuntimeException("用户不存在或已过期");
         }
         //检查书籍是否存在
-        BookEntity book=bookRepository.SelectByBookName(bookName);
-        if(book.getBookId()==null ||!book.getDeleteFlag()){
+        BookEntity book=bookRepository.SelectBookById(bookId);
+        if(book.getBookId()==null ||book.getDeleteFlag()){
             throw new RuntimeException("书籍不存在或已过期");
         }
         if(book.getQuantity()<1){
@@ -56,17 +58,21 @@ public class BorrowingBookServiceImpl implements BorrowingBookService {
         borrowHistoryEntity.setCreateDateTime(LocalDateTime.now());
         borrowHistoryEntity.setUpdateDateTime(LocalDateTime.now());
         //检查是否有同种书未归还
+        System.out.println("检查是否有同种书未归还"+borrowHistoryEntity.getBookId()+"图书Id"+borrowHistoryEntity.getUserId()+"用户Id");
         BorrowHistoryEntity borrowHistory=borrowHistoryRepository.SelectBorrowHistory(borrowHistoryEntity.getUserId(),borrowHistoryEntity.getBookId());
-        if(borrowHistory.getReturnDate()==null){
+        System.out.println("检查是否有同种书未归还end"+borrowHistory);
+        if(borrowHistory!=null&&borrowHistory.getReturnDate()==null){
             throw new RuntimeException("你所借的图书你已经借过相同的且还没有归还，请先归还上一本再来借阅");
         }
         //添加借阅表
+        System.out.println("添加借阅表");
         int message=borrowHistoryRepository.insert(borrowHistoryEntity);
         if(message<=0){
-
             throw new RuntimeException("录入失败，请与后台维护人员联系");
         }
+
         //减少图书库存
+        System.out.println("减少图书库存");
         int message1=bookRepository.UpdateQuantity(borrowHistoryEntity.getBookId(),-1,LocalDateTime.now());
         if(message1<=0){
             //因减少库存失败所以删除借阅记录

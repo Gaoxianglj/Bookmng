@@ -1,5 +1,6 @@
 package com.example.accenturespringbootdemo.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.io.Serializable;
 
@@ -19,9 +20,9 @@ public class BookEntity implements Serializable {
     //库存
     private Integer quantity;
     //创建时间
-    private Date createDateTime;
+    private LocalDateTime createDateTime;
     //更新时间
-    private Date updateDateTime;
+    private LocalDateTime updateDateTime;
     //删除flag
     private boolean deleteFlag;
 
@@ -66,19 +67,19 @@ public class BookEntity implements Serializable {
         this.quantity = quantity;
     }
 
-    public Date getCreateDateTime() {
+    public LocalDateTime getCreateDateTime() {
         return createDateTime;
     }
 
-    public void setCreateDateTime(Date createDateTime) {
+    public void setCreateDateTime(LocalDateTime createDateTime) {
         this.createDateTime = createDateTime;
     }
 
-    public Date getUpdateDateTime() {
+    public LocalDateTime getUpdateDateTime() {
         return updateDateTime;
     }
 
-    public void setUpdateDateTime(Date updateDateTime) {
+    public void setUpdateDateTime(LocalDateTime updateDateTime) {
         this.updateDateTime = updateDateTime;
     }
 

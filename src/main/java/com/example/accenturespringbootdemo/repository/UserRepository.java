@@ -37,4 +37,11 @@ public interface UserRepository {
      * @return 用户信息
      */
     public UserEntity seletUserByName(@Param("userName")String userName);
+
+    /**
+     * 根据Id查询用户类
+     * @param userId 用户Id
+     * @return 符合条件的用户类
+     */
+    public UserEntity SelectUserById(@Param("userId")String userId);
 }

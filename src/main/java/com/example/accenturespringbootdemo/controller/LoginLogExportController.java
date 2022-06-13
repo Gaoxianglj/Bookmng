@@ -28,6 +28,11 @@ public class LoginLogExportController {
 	@Resource
 	private LogRetrieveService logRetrieveService;
 
+	/**
+	 *
+	 * @param response http
+	 * @return csv文件
+	 */
 	@GetMapping(value = "/login/log/export")
 	public Object exportCsvs(HttpServletResponse response) {
 		 List<LogRetrieve>	list= logRetrieveService.LogRetrieve();
