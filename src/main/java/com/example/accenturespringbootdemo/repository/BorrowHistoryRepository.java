@@ -3,6 +3,7 @@ package com.example.accenturespringbootdemo.repository;
 import com.example.accenturespringbootdemo.entity.BorrowHistoryEntity;
 import com.example.accenturespringbootdemo.entity.RankingRetrieve.bookRankingRetrieve;
 import com.example.accenturespringbootdemo.entity.RankingRetrieve.userRankingRetrieve;
+import com.example.accenturespringbootdemo.entity.UserBorrowHisorty;
 import com.example.accenturespringbootdemo.requestdto.BorrowHistoryForm;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -63,4 +64,8 @@ public interface BorrowHistoryRepository {
      *
      */
     public List<BorrowHistoryForm> SelectBorrowHistoryList(@Param("borrow") BorrowHistoryForm borrowHistory);
+    /**
+     * @param userId 用户Id
+     */
+    public UserBorrowHisorty[] SelectUserBorrowHisortyList(@Param("userId") Integer userId);
 }

@@ -1,9 +1,10 @@
 package com.example.accenturespringbootdemo.controller;
 
+import com.example.accenturespringbootdemo.entity.UserBorrowHisorty;
 import com.example.accenturespringbootdemo.exception.BusinessFailureException;
 import com.example.accenturespringbootdemo.requestdto.Returnform;
+import com.example.accenturespringbootdemo.requestdto.UserIdForm;
 import com.example.accenturespringbootdemo.service.ReturnService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,5 +31,17 @@ public class ReturnController {
             throw new BusinessFailureException(errors);
         }
        returnService.BookReturn(form.getUserId(),form.getBookId());
+    }
+    /**
+     * 查询未归还的图书列表
+     */
+    @PostMapping("/book/return/list")
+    public UserBorrowHisorty[] UserBorrowHistoryList(@RequestBody @Valid UserIdForm form,Errors errors){
+        if (errors.hasErrors()) {
+            // 当form中存在验证错误，则抛出业务错误，将验证信息输出。
+            throw new BusinessFailureException(errors);
+        }
+        return returnService.UserBorrowHistoryList(form.getUserId());
+
     }
 }

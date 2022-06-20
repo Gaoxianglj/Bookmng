@@ -1,6 +1,7 @@
 package com.example.accenturespringbootdemo.service.impl;
 
 import com.example.accenturespringbootdemo.entity.BorrowHistoryEntity;
+import com.example.accenturespringbootdemo.entity.UserBorrowHisorty;
 import com.example.accenturespringbootdemo.exception.BusinessFailureException;
 import com.example.accenturespringbootdemo.exception.MyException;
 import com.example.accenturespringbootdemo.repository.BookRepository;
@@ -50,5 +51,12 @@ public class ReturServiceImpl implements ReturnService {
         }
 
 
+    }
+
+    @Override
+    public UserBorrowHisorty[] UserBorrowHistoryList(String userId) {
+        System.out.println("用户Id"+userId
+        );
+        return borrowHistoryRepository.SelectUserBorrowHisortyList(Integer.valueOf(userId));
     }
 }

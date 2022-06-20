@@ -33,6 +33,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     user.setDeleteFlag(false);
     user.setUserType(2);//正常注册为用户
     int message=userRepository.Registration(user);
+    System.out.println("注册信号"+message);
     if(message<=0){
         // 注册失败则抛出业务异常。
         throw new RuntimeException("注册失败,请联系后台");
